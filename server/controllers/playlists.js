@@ -2,7 +2,7 @@ import PlayList from "../models/Playlist.js";
 import User from "../models/User.js";
 
 /* READ */
-export const getAllPlaylists = async (req, res) => {
+export const getAllUserPlaylists = async (req, res) => {
     try {
         const { id } = req.params;
         const user = await User.findById(id);
@@ -63,3 +63,29 @@ export const createPlayList = async (req, res) => {
     }
 }
 
+/* UPDATE */
+export const likePlaylist = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { userId } = req.body;
+
+        console.log(id, userId)
+
+        const user = await User.findById(userId);
+        const playlist = await PlayList.findById(id);
+        const isLiked = playlist.likes.get(userId);
+
+        if(isLiked){
+            playlist.likes.delete(userId);
+            user.likedPlaylists.pull(id);
+        }else{
+            playlist.likes.set(userId, true);
+            user.likedPlaylists.push(id);
+        }
+        await playlist.save()
+        await user.save()
+        res.status(200).json(playlist);
+    } catch (error) {
+        res.status(404).json({error: error.message})
+    }
+}

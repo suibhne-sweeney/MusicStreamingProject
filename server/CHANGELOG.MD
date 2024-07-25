@@ -1,3 +1,8 @@
+## [1.2.0] - (2024-07-25)
+- refactored getAllPlaylists to getAllUserPlaylists
+- add likePlaylist logic in controller
+- add path in playlists routes (PATCH API)
+
 ## [1.1.0] - (2024-07-25)
 - add likeSong logic in controller
 - add path in song routes (PATCH API)
