@@ -1,3 +1,8 @@
+## [1.3.0] - (2024-07-26)
+- add populate to getPlaylist API function
+- add patch API routes for addSong
+- add controller addSong
+
 ## [1.2.0] - (2024-07-25)
 - refactored getAllPlaylists to getAllUserPlaylists
 - add likePlaylist logic in controller

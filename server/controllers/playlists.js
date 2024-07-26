@@ -1,4 +1,5 @@
 import PlayList from "../models/Playlist.js";
+import Song from "../models/Song.js";
 import User from "../models/User.js";
 
 /* READ */
@@ -23,7 +24,7 @@ export const getAllUserPlaylists = async (req, res) => {
 export const getPlaylist = async (req, res) => {
     try {
         const { id } = req.params;
-        const playlist = await PlayList.findById(id)
+        const playlist = await PlayList.findById(id).populate("songs")
         
         res.status(200).json(playlist);
     } catch (error) {
@@ -87,5 +88,21 @@ export const likePlaylist = async (req, res) => {
         res.status(200).json(playlist);
     } catch (error) {
         res.status(404).json({error: error.message})
+    }
+}
+
+export const addSong = async (req, res) => {
+    try {
+        const { id, playlistId } = req.params;
+
+        const playlist = await PlayList.findByIdAndUpdate(
+            playlistId,
+            { $addToSet: { songs: id }},
+            { new: true}
+        ).populate("songs");
+
+        res.status(200).json(playlist);
+    } catch (err){
+        res.status(404).json({error: err.message});
     }
 }
