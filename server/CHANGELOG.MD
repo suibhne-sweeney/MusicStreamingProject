@@ -1,3 +1,7 @@
+## [1.4.0] - (2024-07-26)
+- add PATCH API routes for getAllSongs
+- add getAllSongs controller function 
+
 ## [1.3.0] - (2024-07-26)
 - add populate to getPlaylist API function
 - add patch API routes for addSong

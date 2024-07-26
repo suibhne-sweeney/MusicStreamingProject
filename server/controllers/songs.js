@@ -12,6 +12,15 @@ export const getSong = async (req, res) => {
     }
 }
 
+export const getAllSongs = async (req, res) => {
+    try {
+        const songs = await Song.find();
+        res.status(200).json(songs);
+    } catch (error) {
+        res.status(404).json({error: error.message});
+    }
+}
+
 /* WRIGHT */
 export const createSong = async (req, res) => {
     try {
